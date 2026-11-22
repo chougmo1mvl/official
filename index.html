@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ЧОУ «ГМО №1 МВЛ» — Школа новых возможностей</title>
+  
+  <!-- АВАТАРКА ВКЛАДКИ (FAVICON) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%232e7bd6%22/><text x=%2250%22 y=%2270%22 font-size=%2260%22 font-family=%22Arial%22 font-weight=%22bold%22 fill=%22white%22 text-anchor=%22middle%22>Г</text></svg>">
+
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, system-ui, sans-serif; }
     html { scroll-behavior: smooth; }
@@ -545,54 +549,28 @@
   const db = getFirestore(app);
 
   // ============================================================
-  // ЗАСЕКРЕЧЕННЫЙ ПАРОЛЬ (шифр, разбитый на 3 части)
+  // ПРОВЕРКА ПАРОЛЯ (УПРОЩЕННАЯ ВЕРСИЯ ДЛЯ 100% РАБОТЫ)
   // ============================================================
-  (function () {
-    'use strict';
-    const _v = ["1.4.2", "U2Fs", "dGVk", "X1+8", "3.0.1", "kL9z"];
-    const _p = { a: "55 32 46 73 64 47 56 6b", b: "58 31 39 62 33 6d 4b 78", c: "51 6d 39 70 4c 7a 32 76" };
-    const _k = "TjJabU5Xa3hYMTliM21LeFE=";
-    const _salt = "gmo1-mvl-2026-salt-v1";
-
-    function _assemble() {
-      const fromHex = (h) => h.match(/.{1,2}/g).map(b => String.fromCharCode(parseInt(b, 16))).join('');
-      return fromHex(_p.a.replace(/\s/g, '')) + fromHex(_p.b.replace(/\s/g, '')) + fromHex(_p.c.replace(/\s/g, '')) + atob(_k);
-    }
-
-    async function _hash(password) {
-      const enc = new TextEncoder();
-      const km = await crypto.subtle.importKey('raw', enc.encode(_salt), { name: 'PBKDF2' }, false, ['deriveBits']);
-      const bits = await crypto.subtle.deriveBits({ name: 'PBKDF2', salt: enc.encode(_salt), iterations: 100000, hash: 'SHA-256' }, km, 256);
-      const key = await crypto.subtle.importKey('raw', bits, { name: 'AES-GCM' }, false, ['encrypt']);
-      const iv = enc.encode(_salt).slice(0, 12);
-      const cipher = await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, enc.encode(password));
-      return btoa(String.fromCharCode(...new Uint8Array(cipher)));
-    }
-
-    async function _verify(input) {
-      const stored = _assemble();
-      const attempt = await _hash(input);
-      if (stored.length !== attempt.length) return false;
-      let diff = 0;
-      for (let i = 0; i < stored.length; i++) diff |= stored.charCodeAt(i) ^ attempt.charCodeAt(i);
-      return diff === 0;
-    }
-
-    window.__auth = {
-      async login(password) {
-        const ok = await _verify(password);
-        if (ok) { sessionStorage.setItem('devAuth', 'true'); sessionStorage.setItem('devAuthTime', Date.now().toString()); }
-        return ok;
-      },
-      isLoggedIn() {
-        if (sessionStorage.getItem('devAuth') !== 'true') return false;
-        const t = parseInt(sessionStorage.getItem('devAuthTime') || '0', 10);
-        if (Date.now() - t > 2 * 60 * 60 * 1000) { this.logout(); return false; }
+  window.__auth = {
+    login(password) {
+      if (password === "Tsikhonchik_Kiril200") {
+        sessionStorage.setItem('devAuth', 'true');
+        sessionStorage.setItem('devAuthTime', Date.now().toString());
         return true;
-      },
-      logout() { sessionStorage.removeItem('devAuth'); sessionStorage.removeItem('devAuthTime'); }
-    };
-  })();
+      }
+      return false;
+    },
+    isLoggedIn() {
+      if (sessionStorage.getItem('devAuth') !== 'true') return false;
+      const t = parseInt(sessionStorage.getItem('devAuthTime') || '0', 10);
+      if (Date.now() - t > 2 * 60 * 60 * 1000) { this.logout(); return false; }
+      return true;
+    },
+    logout() { 
+      sessionStorage.removeItem('devAuth'); 
+      sessionStorage.removeItem('devAuthTime'); 
+    }
+  };
 
   // ============================================================
   // ОБЪЕКТ ДАННЫХ (кэш для рендера)
@@ -775,17 +753,20 @@
     openModal('devLoginModal');
   };
 
-  window.checkDevPassword = async function () {
+  window.checkDevPassword = function () {
     const pass = document.getElementById('devPassword').value;
     const errEl = document.getElementById('devError');
     errEl.style.display = 'none';
     if (!pass) { errEl.textContent = 'Введите пароль'; errEl.style.display = 'block'; return; }
-    const ok = await window.__auth.login(pass);
-    if (ok) { closeModal('devLoginModal'); openAdminPanel(); }
-    else {
-      errEl.textContent = 'Неверный пароль'; errEl.style.display = 'block';
+    
+    const ok = window.__auth.login(pass);
+    if (ok) { 
+      closeModal('devLoginModal'); 
+      openAdminPanel(); 
+    } else {
+      errEl.textContent = 'Неверный пароль'; 
+      errEl.style.display = 'block';
       document.getElementById('devPassword').value = '';
-      await new Promise(r => setTimeout(r, 800));
     }
   };
 
