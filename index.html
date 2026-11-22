@@ -1,1 +1,972 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ЧОУ «ГМО №1 МВЛ» — Школа новых возможностей</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, system-ui, sans-serif; }
+    html { scroll-behavior: smooth; }
 
+    body {
+      background: linear-gradient(135deg, #e3f2ff 0%, #fff1e0 40%, #ffe4cc 70%, #dceeff 100%);
+      background-attachment: fixed;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* ===== ШАПКА ===== */
+    .header {
+      background: #ffffffd9; backdrop-filter: blur(10px);
+      box-shadow: 0 4px 18px rgba(255, 140, 60, 0.15);
+      padding: 12px 30px; display: flex; flex-wrap: wrap;
+      align-items: center; justify-content: space-between;
+      border-bottom: 3px solid #ff9d4d; position: sticky; top: 0; z-index: 100;
+      animation: slideDown 0.6s ease;
+    }
+    @keyframes slideDown { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    .logo-small { font-size: 1.5rem; font-weight: 700; letter-spacing: 0.5px; }
+    .logo-small span { display: inline-block; }
+    .logo-small span:nth-child(1) { color: #2e7bd6; text-shadow: 0 0 6px #2e7bd688; }
+    .logo-small span:nth-child(2) { color: #3fb87a; text-shadow: 0 0 6px #3fb87a88; }
+    .logo-small span:nth-child(3) { color: #ef5757; text-shadow: 0 0 6px #ef575788; }
+    .logo-small span:nth-child(4) { color: #f5b91e; text-shadow: 0 0 6px #f5b91e88; }
+    .logo-small span:nth-child(5) { color: #ff8a3d; text-shadow: 0 0 6px #ff8a3d88; }
+
+    .nav-menu { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; }
+    .nav-menu button {
+      background: transparent; border: none; font-size: 0.95rem; font-weight: 600;
+      padding: 8px 14px; border-radius: 30px; cursor: pointer; color: #4a5568;
+      transition: 0.25s; white-space: nowrap;
+    }
+    .nav-menu button:hover { background: #ffe4cc; color: #d97316; transform: translateY(-2px); box-shadow: 0 0 12px #ff9d4d88; }
+    .nav-menu button.active { background: #ff9d4d; color: #fff; box-shadow: 0 0 14px #ff9d4dcc; }
+    .nav-menu button.black-list-btn { color: #d64545; font-weight: 700; }
+    .nav-menu button.black-list-btn.active { background: #d64545; color: white; box-shadow: 0 0 14px #d64545cc; }
+
+    /* ===== ОСНОВНОЙ КОНТЕНТ ===== */
+    .main-content { flex: 1; padding: 50px 30px; max-width: 1200px; margin: 0 auto; width: 100%; }
+    .section { display: none; text-align: center; }
+    .section.active { display: block; animation: fadeInUp 0.5s ease; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+    h1, h2, h3 { color: #5a6b85; }
+    .section > h2 { color: #ff9d4d !important; text-shadow: 0 0 18px #ff9d4d55, 0 2px 4px #ffffff; font-size: 2.2rem; margin-bottom: 24px; }
+
+    /* ===== ВОЗДУШНЫЕ БУКВЫ ===== */
+    .colored-title { font-size: 3.6rem; font-weight: 800; letter-spacing: 3px; margin-bottom: 16px; display: inline-block; perspective: 600px; }
+    .colored-title span { display: inline-block; animation: floatLetter 3.6s ease-in-out infinite; transition: 0.3s; }
+    .colored-title span:nth-child(1) { color: #2e7bd6; animation-delay: 0s; text-shadow: 0 0 14px #2e7bd699; }
+    .colored-title span:nth-child(2) { color: #3fb87a; animation-delay: 0.1s; text-shadow: 0 0 14px #3fb87a99; }
+    .colored-title span:nth-child(3) { color: #ef5757; animation-delay: 0.2s; text-shadow: 0 0 14px #ef575799; }
+    .colored-title span:nth-child(4) { color: #f5b91e; animation-delay: 0.3s; text-shadow: 0 0 14px #f5b91e99; }
+    .colored-title span:nth-child(5) { color: #ff8a3d; animation-delay: 0.4s; text-shadow: 0 0 14px #ff8a3d99; }
+    .colored-title span:nth-child(6) { color: #2e7bd6; animation-delay: 0.5s; text-shadow: 0 0 14px #2e7bd699; }
+    .colored-title span:nth-child(7) { color: #3fb87a; animation-delay: 0.6s; text-shadow: 0 0 14px #3fb87a99; }
+    .colored-title span:nth-child(8) { color: #ef5757; animation-delay: 0.7s; text-shadow: 0 0 14px #ef575799; }
+    .colored-title span:nth-child(9) { color: #f5b91e; animation-delay: 0.8s; text-shadow: 0 0 14px #f5b91e99; }
+    .colored-title span:nth-child(10) { color: #ff8a3d; animation-delay: 0.9s; text-shadow: 0 0 14px #ff8a3d99; }
+    .colored-title span:nth-child(11) { color: #2e7bd6; animation-delay: 1.0s; text-shadow: 0 0 14px #2e7bd699; }
+    .colored-title span:nth-child(12) { color: #3fb87a; animation-delay: 1.1s; text-shadow: 0 0 14px #3fb87a99; }
+    .colored-title span:nth-child(13) { color: #ef5757; animation-delay: 1.2s; text-shadow: 0 0 14px #ef575799; }
+    .colored-title span:nth-child(14) { color: #f5b91e; animation-delay: 1.3s; text-shadow: 0 0 14px #f5b91e99; }
+    .colored-title span:nth-child(15) { color: #ff8a3d; animation-delay: 1.4s; text-shadow: 0 0 14px #ff8a3d99; }
+    .colored-title span:nth-child(16) { color: #2e7bd6; animation-delay: 1.5s; text-shadow: 0 0 14px #2e7bd699; }
+    .colored-title span:nth-child(17) { color: #3fb87a; animation-delay: 1.6s; text-shadow: 0 0 14px #3fb87a99; }
+    @keyframes floatLetter { 0%, 100% { transform: translateY(0) rotateX(0deg); } 50% { transform: translateY(-12px) rotateX(8deg); } }
+    .colored-title span:hover { transform: translateY(-18px) scale(1.15); filter: drop-shadow(0 6px 14px rgba(255, 140, 60, 0.8)); }
+
+    .subhead { font-size: 1.6rem; font-weight: 500; color: #7c8aa0; margin-bottom: 30px; font-style: italic; animation: fadeInUp 0.7s ease 0.3s both; text-shadow: 0 0 10px #ff9d4d44; }
+
+    /* ===== СЛОГАНЫ ===== */
+    .slogan {
+      background: #ffffffde; border-left: 8px solid #ff9d4d; padding: 24px 30px; border-radius: 24px;
+      box-shadow: 0 8px 20px rgba(255, 140, 60, 0.15), 0 0 22px rgba(255, 157, 77, 0.2);
+      margin: 30px auto; font-size: 1.15rem; line-height: 1.7; color: #6b7a90; max-width: 900px; text-align: center;
+      transition: 0.3s;
+    }
+    .slogan:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(255, 140, 60, 0.25), 0 0 32px rgba(255, 157, 77, 0.35); }
+
+    /* ===== КАРТОЧКИ ===== */
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; margin-top: 30px; justify-items: center; }
+    .card {
+      background: #ffffffea; backdrop-filter: blur(4px); border-radius: 28px; padding: 28px 24px;
+      box-shadow: 0 10px 24px rgba(100, 140, 200, 0.12); border: 1px solid #ffe0c4;
+      transition: transform 0.3s, box-shadow 0.3s; text-align: center; width: 100%; animation: fadeInUp 0.5s ease both;
+    }
+    .card:hover { transform: translateY(-6px) scale(1.02); box-shadow: 0 18px 36px rgba(255, 140, 60, 0.22), 0 0 26px rgba(96, 165, 250, 0.3); }
+    .card h3 { color: #e8842a; margin-bottom: 10px; font-size: 1.35rem; text-shadow: 0 0 8px #ff9d4d33; }
+    .card p { color: #7c8aa0; line-height: 1.6; }
+
+    /* ===== КНОПКИ ===== */
+    .btn {
+      background: #ff9d4d; color: white; border: none; padding: 11px 26px; border-radius: 40px;
+      font-weight: 600; font-size: 1rem; cursor: pointer; transition: 0.25s; margin-top: 14px;
+      display: inline-block; text-decoration: none;
+    }
+    .btn:hover { background: #e8842a; transform: scale(1.04) translateY(-2px); box-shadow: 0 8px 20px rgba(255, 140, 60, 0.4), 0 0 18px rgba(255, 157, 77, 0.6); }
+    .btn-outline { background: transparent; border: 2px solid #ff9d4d; color: #e8842a; }
+    .btn-outline:hover { background: #ff9d4d; color: white; }
+
+    /* ===== ЛЮДИ ===== */
+    .people-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 22px; margin-top: 30px; justify-items: center; }
+    .people-grid.single-center { grid-template-columns: 1fr; max-width: 280px; margin-left: auto; margin-right: auto; }
+    .person-square {
+      background: #ffffffea; border-radius: 24px; aspect-ratio: 1 / 1; width: 100%; max-width: 260px;
+      padding: 22px 16px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; box-shadow: 0 10px 26px rgba(100, 140, 200, 0.15); border: 2px solid #ffe0c4;
+      transition: transform 0.35s, box-shadow 0.35s; animation: fadeInUp 0.5s ease both; position: relative; overflow: hidden;
+    }
+    .person-square::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 50% 0%, #ffe4cc55, transparent 65%); pointer-events: none; }
+    .person-square:hover { transform: translateY(-8px) scale(1.03); box-shadow: 0 20px 40px rgba(255, 140, 60, 0.28), 0 0 30px rgba(255, 157, 77, 0.35); }
+    .person-square.director { border: 3px solid #ef5757; box-shadow: 0 10px 30px rgba(239, 87, 87, 0.3), 0 0 26px rgba(239, 87, 87, 0.3); }
+    .person-square.director .person-name { color: #ef5757; }
+
+    /* ===== АВАТАРКИ ===== */
+    .big-avatar {
+      width: 110px; height: 110px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 3rem; flex-shrink: 0; position: relative; margin-bottom: 14px;
+      background: radial-gradient(circle at 30% 25%, #e8f4ff, #c7e0ff 60%, #a8ceff);
+      border: 3px solid #7fb3ff; box-shadow: 0 0 24px #7fb3ff88, inset 0 0 20px #ffffffaa;
+      animation: avatarPulse 3s ease-in-out infinite; transition: 0.3s;
+    }
+    .person-square:hover .big-avatar { transform: scale(1.08) rotate(-3deg); }
+    @keyframes avatarPulse { 0%, 100% { box-shadow: 0 0 20px #7fb3ff88, inset 0 0 18px #ffffff99; } 50% { box-shadow: 0 0 36px #7fb3ffcc, inset 0 0 22px #ffffffcc; } }
+    .big-avatar.red { background: radial-gradient(circle at 30% 25%, #ffe8e8, #ffc7c7 60%, #ffa8a8); border-color: #ef5757; box-shadow: 0 0 24px #ef575788, inset 0 0 20px #ffffffaa; }
+    .big-avatar.red { animation: avatarPulseRed 3s ease-in-out infinite; }
+    @keyframes avatarPulseRed { 0%, 100% { box-shadow: 0 0 20px #ef575788, inset 0 0 18px #ffffff99; } 50% { box-shadow: 0 0 36px #ef5757cc, inset 0 0 22px #ffffffcc; } }
+    .big-avatar.green { background: radial-gradient(circle at 30% 25%, #e6ffe6, #c7f5c7 60%, #a8e6a8); border-color: #3fb87a; box-shadow: 0 0 24px #3fb87a88, inset 0 0 20px #ffffffaa; }
+    .big-avatar.green { animation: avatarPulseGreen 3s ease-in-out infinite; }
+    @keyframes avatarPulseGreen { 0%, 100% { box-shadow: 0 0 20px #3fb87a88, inset 0 0 18px #ffffff99; } 50% { box-shadow: 0 0 36px #3fb87acc, inset 0 0 22px #ffffffcc; } }
+    .avatar-emoji { position: relative; z-index: 2; line-height: 1; }
+    .avatar-mantle { position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%); font-size: 2.4rem; line-height: 1; z-index: 1; }
+    .avatar-hat { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); font-size: 2.2rem; line-height: 1; z-index: 3; filter: drop-shadow(0 3px 5px #00000033); }
+    .person-name { font-weight: 700; color: #3a4a63; margin-bottom: 6px; font-size: 1.02rem; }
+    .person-role { color: #8a97ab; font-size: 0.85rem; line-height: 1.4; }
+
+    .person-square.black { border: 2px solid #ef5757; background: #fff5f5ea; }
+    .black-avatar { background: repeating-linear-gradient(45deg, #333 0 10px, #eee 10px 20px) !important; border-color: #333 !important; box-shadow: 0 0 22px #33333388 !important; animation: none !important; position: relative; }
+    .black-avatar .avatar-emoji { filter: grayscale(1) contrast(1.2); }
+    .black-avatar .badge-cs { position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%); background: #333; color: #fff; font-size: 0.7rem; padding: 2px 10px; border-radius: 6px; border: 1px solid #fff; z-index: 4; font-weight: 700; }
+    .black-name { color: #d64545 !important; }
+
+    /* ===== КОНТАКТЫ ===== */
+    .contacts-wrap { display: flex; flex-direction: column; gap: 22px; margin-top: 30px; align-items: center; }
+    .contacts-row { display: flex; flex-wrap: wrap; gap: 22px; justify-content: center; width: 100%; }
+    .contact-neon {
+      position: relative; background: #ffffff; border-radius: 28px; padding: 32px 26px; width: 100%; max-width: 360px;
+      text-align: center; overflow: hidden; transition: transform 0.45s cubic-bezier(.2,.8,.2,1), box-shadow 0.45s;
+      animation: contactPop 0.7s cubic-bezier(.2,.8,.2,1) both; border: 2px solid transparent; z-index: 1;
+    }
+    .contact-neon:nth-child(1) { --neon: #2e7bd6; --neon-light: #7fb3ff; }
+    .contact-neon:nth-child(2) { --neon: #d45d9c; --neon-light: #f472b6; }
+    .contact-neon:nth-child(3) { --neon: #06b6d4; --neon-light: #22d3ee; }
+    .contact-neon:nth-child(4) { --neon: #8b5cf6; --neon-light: #a78bfa; }
+    .contact-neon:nth-child(5) { --neon: #ff8a3d; --neon-light: #ffb37a; }
+    .contact-neon:nth-child(6) { --neon: #ef5757; --neon-light: #ff9090; }
+    @keyframes contactPop { 0% { opacity: 0; transform: translateY(40px) scale(0.92); } 60% { opacity: 1; transform: translateY(-6px) scale(1.02); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+    .contact-neon::before { content: ""; position: absolute; inset: 0; border-radius: 28px; padding: 2px; background: linear-gradient(135deg, var(--neon), var(--neon-light), var(--neon)); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; z-index: -1; opacity: 0.9; }
+    .contact-neon::after { content: ""; position: absolute; inset: -30%; background: radial-gradient(circle at 50% 0%, var(--neon-light), transparent 60%); opacity: 0.18; z-index: -2; transition: opacity 0.4s; }
+    .contact-neon:hover { transform: translateY(-10px) scale(1.03); box-shadow: 0 20px 45px -10px var(--neon), 0 0 40px -5px var(--neon-light); }
+    .contact-neon:hover::after { opacity: 0.35; }
+    .contact-neon .icon-wrap { width: 76px; height: 76px; margin: 0 auto 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.2rem; background: radial-gradient(circle, var(--neon-light), var(--neon)); color: #fff; box-shadow: 0 0 24px var(--neon), inset 0 0 14px #ffffff55; animation: iconPulse 2.6s ease-in-out infinite; }
+    @keyframes iconPulse { 0%, 100% { transform: scale(1); box-shadow: 0 0 20px var(--neon); } 50% { transform: scale(1.08); box-shadow: 0 0 34px var(--neon-light); } }
+    .contact-neon h3 { color: var(--neon); margin-bottom: 12px; font-size: 1.2rem; text-shadow: 0 0 10px var(--neon-light); }
+    .contact-neon p { margin: 6px 0; }
+    .contact-neon a { color: #3a4a63; font-weight: 600; text-decoration: none; transition: 0.25s; display: inline-block; }
+    .contact-neon a:hover { color: var(--neon); text-shadow: 0 0 10px var(--neon-light); transform: scale(1.04); }
+
+    /* ===== МОДАЛЬНЫЕ ОКНА ===== */
+    .modal-overlay { position: fixed; inset: 0; background: #1e1e2fb0; backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; padding: 20px; z-index: 1000; }
+    .modal-overlay.active { display: flex; }
+    .modal { background: #fefeff; border-radius: 40px; max-width: 560px; width: 100%; padding: 32px 36px; box-shadow: 0 30px 50px #2a1020b0, 0 0 40px #ff9d4d66; max-height: 90vh; overflow-y: auto; border: 2px solid #ffd9b8; text-align: left; animation: modalPop 0.35s ease; }
+    @keyframes modalPop { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .modal h3 { color: #e8842a; margin-bottom: 18px; font-size: 1.7rem; }
+    .modal label { display: block; font-weight: 600; margin: 12px 0 4px; color: #5a6b85; }
+    .modal input, .modal textarea, .modal select { width: 100%; padding: 12px 16px; border-radius: 30px; border: 1.5px solid #ffd9b8; background: white; font-size: 1rem; outline: none; transition: 0.2s; }
+    .modal input:focus, .modal textarea:focus { border-color: #ff9d4d; box-shadow: 0 0 0 3px #ffe4cc, 0 0 14px #ff9d4d55; }
+    .modal textarea { min-height: 90px; resize: vertical; border-radius: 20px; }
+    .modal-actions { display: flex; gap: 12px; margin-top: 24px; justify-content: flex-end; flex-wrap: wrap; }
+    .rating-options { display: flex; gap: 8px; flex-wrap: wrap; margin: 8px 0; }
+    .rating-options label { display: flex; align-items: center; gap: 6px; font-weight: 400; background: #fff3e6; padding: 8px 16px; border-radius: 30px; cursor: pointer; transition: 0.2s; }
+    .rating-options label:hover { background: #ffe4cc; box-shadow: 0 0 10px #ff9d4d66; }
+    .badge-code { background: #fff3e6; padding: 4px 14px; border-radius: 40px; font-family: monospace; font-weight: 600; }
+
+    /* ===== ПОДВАЛ ===== */
+    .footer { background: linear-gradient(90deg, #5a6b85, #ff9d4d); color: #fff; text-align: center; padding: 22px 30px; font-size: 0.95rem; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 10px 30px; margin-top: 30px; }
+    .footer button { background: transparent; border: 1px solid #fff; color: #fff; padding: 6px 18px; border-radius: 30px; cursor: pointer; font-size: 0.9rem; transition: 0.2s; }
+    .footer button:hover { background: #fff; color: #e8842a; transform: scale(1.05); box-shadow: 0 0 16px #fff; }
+
+    /* ===== АДМИН-ПАНЕЛЬ ===== */
+    .admin-tabs { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+    .admin-tabs button { background: #ffe4cc; border: none; padding: 8px 18px; border-radius: 30px; cursor: pointer; font-weight: 600; color: #7a5630; transition: 0.2s; }
+    .admin-tabs button.active { background: #ff9d4d; color: white; box-shadow: 0 0 14px #ff9d4d88; }
+    .admin-row { display: flex; gap: 12px; align-items: center; background: white; padding: 12px 18px; border-radius: 20px; margin-bottom: 10px; flex-wrap: wrap; border: 1px solid #ffe0c4; }
+    .admin-row .status { font-weight: 700; padding: 4px 14px; border-radius: 30px; font-size: 0.8rem; }
+    .status-pending { background: #fff3cd; color: #856404; }
+    .status-approved { background: #d4edda; color: #155724; }
+    .status-rejected { background: #f8d7da; color: #721c24; }
+
+    @media (max-width: 750px) {
+      .colored-title { font-size: 2.1rem; letter-spacing: 1px; }
+      .header { flex-direction: column; gap: 12px; padding: 16px; }
+      .nav-menu { justify-content: center; }
+      .main-content { padding: 25px 16px; }
+      .person-square { max-width: 220px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ШАПКА -->
+<header class="header">
+  <div class="logo-small">
+    <span>Г</span><span>М</span><span>О</span><span> </span><span>№</span><span>1</span>
+  </div>
+  <nav>
+    <ul class="nav-menu" id="navMenu">
+      <li><button data-section="home" class="active">Главная</button></li>
+      <li><button data-section="about">О школе</button></li>
+      <li><button data-section="admin">Администрация</button></li>
+      <li><button data-section="vacancies">Вакансии</button></li>
+      <li><button data-section="schedule">Расписание</button></li>
+      <li><button data-section="reviews">Отзывы</button></li>
+      <li><button data-section="staff">Педсостав</button></li>
+      <li><button data-section="contacts">Контакты</button></li>
+      <li><button data-section="blacklist" class="black-list-btn">Чёрный список</button></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="main-content">
+
+  <!-- ГЛАВНАЯ -->
+  <section id="home" class="section active">
+    <div class="colored-title">
+      <span>Ч</span><span>О</span><span>У</span><span> </span><span>«</span><span>Г</span><span>М</span><span>О</span><span> </span><span>№</span><span>1</span><span> </span><span>М</span><span>В</span><span>Л</span><span>»</span>
+    </div>
+    <div class="subhead">Школа новых возможностей</div>
+    <div class="slogan">
+      🎓 За правильное образование, за справедливое отношение к каждому ученику!<br>
+      Мы создаём пространство, где знания — сила, а уважение — норма.<br>
+      💙 Инновации, IT-профили, поддержка учителей и система анти-буллинга.
+    </div>
+    <div class="card-grid">
+      <div class="card">
+        <h3>📅 Основание школы</h3>
+        <p>1 сентября 2026 года ЧОУ «ГМО №1 МВЛ» открыла свои двери для первых учеников.</p>
+      </div>
+      <div class="card">
+        <h3>💻 IT-образование</h3>
+        <p>Профильные классы по программированию, робототехнике и цифровому дизайну.</p>
+      </div>
+      <div class="card">
+        <h3>🤝 Поддержка учителей</h3>
+        <p>Администрация всегда на стороне педагогов: методическая помощь и ресурсы.</p>
+      </div>
+      <div class="card">
+        <h3>🛡️ Система анти-буллинга</h3>
+        <p>Мы против травли! Работает служба поддержки и психологи.</p>
+        <button class="btn btn-outline" onclick="showAntiBullying()">Подробнее</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- О ШКОЛЕ -->
+  <section id="about" class="section">
+    <h2>О школе</h2>
+    <div class="slogan">
+      <strong>1 сентября 2026 года</strong> школа открыла свои двери. Мы — частное общеобразовательное учреждение с углублённым изучением IT-дисциплин.<br><br>
+      ✅ Профильные классы: программирование, веб-разработка, робототехника, медиа.<br>
+      ✅ Поддержка учителей: наставничество, современные материалы, достойная оплата.<br>
+      ✅ Администрация всегда открыта к диалогу: решения принимаются коллегиально.<br>
+      ✅ Система анти-буллинга: нулевая терпимость к травле, работает служба доверия.
+    </div>
+    <div class="card-grid">
+      <div class="card">
+        <h3>🎯 Наша миссия</h3>
+        <p>Воспитать поколение думающих, свободных и ответственных людей.</p>
+      </div>
+      <div class="card">
+        <h3>🏫 Атмосфера</h3>
+        <p>Уважение, безопасность и вдохновение для каждого ученика и учителя.</p>
+      </div>
+      <div class="card">
+        <h3>🛡️ Анти-буллинг</h3>
+        <p>Мы против буллинга! Любое обращение рассматривается в течение 24 часов.</p>
+        <button class="btn btn-outline" onclick="showAntiBullying()">Подробнее</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- АДМИНИСТРАЦИЯ -->
+  <section id="admin" class="section">
+    <h2>Администрация</h2>
+    <div class="people-grid single-center" id="directorBox"></div>
+    <div class="people-grid" id="adminList"></div>
+    <p style="color:#a0aab8; font-style:italic; margin-top:24px;">* Полный список редактируется в панели разработчика.</p>
+  </section>
+
+  <!-- ВАКАНСИИ -->
+  <section id="vacancies" class="section">
+    <h2>Вакансии</h2>
+    <div class="slogan">
+      Вакансии, которые доступны именно сейчас, вы можете посмотреть в нашем официальном сообществе ВК нашей школы в разделе «Вакансии».
+    </div>
+    <a href="https://vk.ru/gmo1_mvl" target="_blank" class="btn">Перейти в сообщество ВК</a>
+  </section>
+
+  <!-- РАСПИСАНИЕ -->
+  <section id="schedule" class="section">
+    <h2>Расписание занятий</h2>
+    <div class="slogan">
+      Расписание вы можете посмотреть в нашем официальном сообществе ВК в разделе «Расписание занятий».
+    </div>
+    <a href="https://vk.ru/gmo1_mvl" target="_blank" class="btn">Перейти в сообщество ВК</a>
+  </section>
+
+  <!-- ОТЗЫВЫ -->
+  <section id="reviews" class="section">
+    <h2>Отзывы</h2>
+    <div id="reviewsList" style="margin:20px auto; max-width:800px;"></div>
+    <button class="btn" onclick="openReviewModal()">Оставить отзыв нашей школе</button>
+  </section>
+
+  <!-- ПЕДСОСТАВ -->
+  <section id="staff" class="section">
+    <h2>Педагогический состав</h2>
+    <div class="people-grid" id="staffList"></div>
+    <p style="color:#a0aab8; font-style:italic; margin-top:24px;">* Список редактируется в панели разработчика.</p>
+  </section>
+
+  <!-- КОНТАКТЫ -->
+  <section id="contacts" class="section">
+    <h2>Контакты</h2>
+    <div class="contacts-wrap">
+      <div class="contacts-row">
+        <div class="contact-neon">
+          <div class="icon-wrap">📞</div>
+          <h3>Официальный телефон</h3>
+          <p><a href="tel:+79803488898" id="contactPhone">+7 980 348 88 98</a></p>
+        </div>
+      </div>
+      <div class="contacts-row">
+        <div class="contact-neon">
+          <div class="icon-wrap">💬</div>
+          <h3>Сообщество ВК</h3>
+          <p><a href="https://vk.ru/gmo1_mvl" target="_blank" id="contactVk">vk.ru/gmo1_mvl</a></p>
+        </div>
+        <div class="contact-neon">
+          <div class="icon-wrap">🤝</div>
+          <h3>Помощник директора</h3>
+          <p>Быстрая связь по любым вопросам</p>
+          <a href="https://vk.ru/byusupov17" target="_blank" class="btn" id="contactHelper" style="margin-top:12px;">Написать помощнику</a>
+        </div>
+      </div>
+      <div class="contacts-row">
+        <div class="contact-neon">
+          <div class="icon-wrap">✉️</div>
+          <h3>Официальная почта</h3>
+          <p><a href="mailto:school@gmo1-mvl.ru" id="contactEmailMain">school@gmo1-mvl.ru</a></p>
+        </div>
+        <div class="contact-neon">
+          <div class="icon-wrap">👔</div>
+          <h3>Обращения к директору</h3>
+          <p><a href="mailto:priemdirekt@gmo1-mvl.ru" id="contactEmailDirector">priemdirekt@gmo1-mvl.ru</a></p>
+        </div>
+        <div class="contact-neon">
+          <div class="icon-wrap">💼</div>
+          <h3>Приём на работу</h3>
+          <p><a href="mailto:rabota@gmo1-mvl.ru" id="contactEmailJob">rabota@gmo1-mvl.ru</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ЧЁРНЫЙ СПИСОК -->
+  <section id="blacklist" class="section">
+    <h2 style="color:#ef5757 !important; text-shadow:0 0 18px #ef575755, 0 2px 4px #fff;">Чёрный список</h2>
+    <p style="margin-bottom:16px; color:#8a97ab;">Нажмите на запись, чтобы узнать причину занесения.</p>
+    <div class="people-grid" id="blacklistItems"></div>
+    <p style="color:#a0aab8; font-style:italic; margin-top:24px;">* Список редактируется в панели разработчика.</p>
+  </section>
+
+</main>
+
+<!-- ПОДВАЛ -->
+<footer class="footer">
+  <span>© 2025–2026 Все права защищены ЧОУ «ГМО №1 МВЛ»</span>
+  <button onclick="openDevLogin()">Вход для разработчиков</button>
+</footer>
+
+<!-- ===== МОДАЛЬНЫЕ ОКНА ===== -->
+
+<div class="modal-overlay" id="antiBullyingModal">
+  <div class="modal">
+    <h3>🛡️ Мы против буллинга</h3>
+    <p style="line-height:1.6; margin-bottom:20px; color:#5a6b85;">
+      В ЧОУ «ГМО №1 МВЛ» действует политика нулевой терпимости к любым формам травли.
+      Мы всегда разбираемся в каждой ситуации, не даём в обиду учеников и учителей.
+      Работает служба поддержки, психологи, анонимная линия доверия.
+      Любое обращение рассматривается в течение 24 часов.
+    </p>
+    <button class="btn" onclick="closeModal('antiBullyingModal')">Закрыть</button>
+  </div>
+</div>
+
+<div class="modal-overlay" id="reviewModal">
+  <div class="modal">
+    <h3>Оставить отзыв</h3>
+    <form id="reviewForm" onsubmit="submitReview(event)">
+      <label>Фамилия и имя</label>
+      <input type="text" id="reviewName" required placeholder="Иванов Иван">
+      <label>Оценка школы (1–5)</label>
+      <div class="rating-options">
+        <label><input type="radio" name="rating" value="1" required onchange="updateReviewText()"> 1 (ужасно)</label>
+        <label><input type="radio" name="rating" value="2" onchange="updateReviewText()"> 2 (плохо)</label>
+        <label><input type="radio" name="rating" value="3" onchange="updateReviewText()"> 3 (удовлетворительно)</label>
+        <label><input type="radio" name="rating" value="4" onchange="updateReviewText()"> 4 (хорошо)</label>
+        <label><input type="radio" name="rating" value="5" onchange="updateReviewText()"> 5 (отлично)</label>
+      </div>
+      <div id="reviewTextBlock" style="display:none;">
+        <label id="reviewTextLabel">Расскажите, что вам понравилось/не понравилось</label>
+        <textarea id="reviewText" required></textarea>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-outline" onclick="closeModal('reviewModal')">Отмена</button>
+        <button type="submit" class="btn">Отправить</button>
+      </div>
+    </form>
+    <div id="reviewSuccess" style="display:none; margin-top:20px; background:#e6f7ec; padding:16px; border-radius:20px;">
+      <p id="reviewSuccessText" style="color:#3a6b50;"></p>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="blacklistReasonModal">
+  <div class="modal">
+    <h3>Причина занесения в ЧС</h3>
+    <p id="blacklistReasonText" style="line-height:1.6; margin-bottom:20px; color:#5a6b85;"></p>
+    <button class="btn" onclick="closeModal('blacklistReasonModal')">Закрыть</button>
+  </div>
+</div>
+
+<div class="modal-overlay" id="devLoginModal">
+  <div class="modal">
+    <h3>Вход для разработчиков</h3>
+    <label>Пароль</label>
+    <input type="password" id="devPassword" placeholder="Введите пароль" autocomplete="off">
+    <p id="devError" style="color:#ef5757; display:none; margin-top:8px;">Неверный пароль</p>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeModal('devLoginModal')">Отмена</button>
+      <button class="btn" onclick="checkDevPassword()">Войти</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="adminPanelModal">
+  <div class="modal" style="max-width:900px;">
+    <h3>Панель разработчика</h3>
+    <div class="admin-tabs" id="adminTabs">
+      <button class="active" data-admin-tab="reviewsTab">Отзывы</button>
+      <button data-admin-tab="adminListTab">Администрация</button>
+      <button data-admin-tab="staffListTab">Педсостав</button>
+      <button data-admin-tab="blacklistTab">Чёрный список</button>
+    </div>
+    <div id="reviewsTab" class="admin-tab-content">
+      <div id="adminReviewsList"></div>
+      <p style="margin-top:10px; font-size:0.9rem; color:#8a97ab;">Найдите отзыв по коду:</p>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <input type="text" id="searchReviewCode" placeholder="GMO-XXXXXX" style="flex:1; min-width:150px; padding:8px 14px; border-radius:30px; border:1.5px solid #ffd9b8;">
+        <button class="btn" onclick="searchReviewByCode()">Найти</button>
+      </div>
+      <div id="searchResult" style="margin-top:12px;"></div>
+    </div>
+    <div id="adminListTab" class="admin-tab-content" style="display:none;">
+      <div id="adminEditList"></div>
+      <div style="display:flex; gap:8px; margin-top:12px; flex-wrap:wrap;">
+        <input type="text" id="newAdminName" placeholder="Фамилия Имя Отчество" style="flex:2; min-width:160px; padding:8px 14px; border-radius:30px; border:1.5px solid #ffd9b8;">
+        <input type="text" id="newAdminRole" placeholder="Должность" style="flex:2; min-width:120px; padding:8px 14px; border-radius:30px; border:1.5px solid #ffd9b8;">
+        <select id="newAdminColor" style="padding:8px 14px; border-radius:30px; border:1.5px solid #ffd9b8;">
+          <option value="red">Красная мантия</option>
+          <option value="blue">Синяя мантия</option>
+        </select>
+        <button class="btn" onclick="addAdmin()">Добавить</button>
+      </div>
+    </div>
+    <div id="staffListTab" class="admin-tab-content" style="display:none;">
+      <div id="staffEditList"></div>
+      <div style="display:flex; gap:8px; margin-top:12px; flex-wrap:wrap;">
+        <input type="text" id="newStaffName" placeholder="Фамилия Имя Отчество" style="flex:2; min-width:160px; padding:8px 14px; border-radius:30px; border:1.5px solid #ffd9b8;">
+        <input type="text" id="newStaffRole" placeholder="Предмет / роль" style="flex:2; min-width:120px; padding:8px 14px; border-radius:30px; border:1.5px solid #ffd9b8;">
+        <button class="btn" onclick="addStaff()">Добавить</button>
+      </div>
+    </div>
+    <div id="blacklistTab" class="admin-tab-content" style="display:none;">
+      <div id="blacklistEditList"></div>
+      <div style="display:flex; gap:8px; margin-top:12px; flex-wrap:wrap;">
+        <input type="text" id="newBlackName" placeholder="Фамилия Имя" style="flex:1; min-width:120px; padding:8px 14px; border-radius:30px; border:1.5px solid #ffd9b8;">
+        <input type="text" id="newBlackReason" placeholder="Причина" style="flex:2; min-width:140px; padding:8px 14px; border-radius:30px; border:1.5px solid #ffd9b8;">
+        <button class="btn" onclick="addBlacklist()">Добавить</button>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeModal('adminPanelModal')">Закрыть</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     FIREBASE SDK + ЛОГИКА САЙТА
+     ============================================================ -->
+<script type="module">
+  // 🔧 ИМПОРТЫ (v13.4.0)
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
+  import {
+    getFirestore, collection, doc, getDoc, getDocs, addDoc, updateDoc, deleteDoc,
+    query, where, orderBy, onSnapshot, serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js";
+
+  // 🔧 ТВОЙ КОНФИГ
+  const firebaseConfig = {
+    apiKey: "AIzaSyDw1NB7M4_HFb92eAWVZqlLFHlUSNwI2U0",
+    authDomain: "chougmo1.firebaseapp.com",
+    projectId: "chougmo1",
+    storageBucket: "chougmo1.firebasestorage.app",
+    messagingSenderId: "220207398182",
+    appId: "1:220207398182:web:1726654223d70f3b8b95e7",
+    measurementId: "G-277NL38XE5"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // ============================================================
+  // ЗАСЕКРЕЧЕННЫЙ ПАРОЛЬ (шифр, разбитый на 3 части)
+  // ============================================================
+  (function () {
+    'use strict';
+    const _v = ["1.4.2", "U2Fs", "dGVk", "X1+8", "3.0.1", "kL9z"];
+    const _p = { a: "55 32 46 73 64 47 56 6b", b: "58 31 39 62 33 6d 4b 78", c: "51 6d 39 70 4c 7a 32 76" };
+    const _k = "TjJabU5Xa3hYMTliM21LeFE=";
+    const _salt = "gmo1-mvl-2026-salt-v1";
+
+    function _assemble() {
+      const fromHex = (h) => h.match(/.{1,2}/g).map(b => String.fromCharCode(parseInt(b, 16))).join('');
+      return fromHex(_p.a.replace(/\s/g, '')) + fromHex(_p.b.replace(/\s/g, '')) + fromHex(_p.c.replace(/\s/g, '')) + atob(_k);
+    }
+
+    async function _hash(password) {
+      const enc = new TextEncoder();
+      const km = await crypto.subtle.importKey('raw', enc.encode(_salt), { name: 'PBKDF2' }, false, ['deriveBits']);
+      const bits = await crypto.subtle.deriveBits({ name: 'PBKDF2', salt: enc.encode(_salt), iterations: 100000, hash: 'SHA-256' }, km, 256);
+      const key = await crypto.subtle.importKey('raw', bits, { name: 'AES-GCM' }, false, ['encrypt']);
+      const iv = enc.encode(_salt).slice(0, 12);
+      const cipher = await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, enc.encode(password));
+      return btoa(String.fromCharCode(...new Uint8Array(cipher)));
+    }
+
+    async function _verify(input) {
+      const stored = _assemble();
+      const attempt = await _hash(input);
+      if (stored.length !== attempt.length) return false;
+      let diff = 0;
+      for (let i = 0; i < stored.length; i++) diff |= stored.charCodeAt(i) ^ attempt.charCodeAt(i);
+      return diff === 0;
+    }
+
+    window.__auth = {
+      async login(password) {
+        const ok = await _verify(password);
+        if (ok) { sessionStorage.setItem('devAuth', 'true'); sessionStorage.setItem('devAuthTime', Date.now().toString()); }
+        return ok;
+      },
+      isLoggedIn() {
+        if (sessionStorage.getItem('devAuth') !== 'true') return false;
+        const t = parseInt(sessionStorage.getItem('devAuthTime') || '0', 10);
+        if (Date.now() - t > 2 * 60 * 60 * 1000) { this.logout(); return false; }
+        return true;
+      },
+      logout() { sessionStorage.removeItem('devAuth'); sessionStorage.removeItem('devAuthTime'); }
+    };
+  })();
+
+  // ============================================================
+  // ОБЪЕКТ ДАННЫХ (кэш для рендера)
+  // ============================================================
+  const DB = {
+    admin: [], staff: [], blacklist: [],
+    settings: { phone: "+7 980 348 88 98", vkLink: "https://vk.ru/gmo1_mvl", helperVk: "https://vk.ru/byusupov17", emailMain: "school@gmo1-mvl.ru", emailDirector: "priemdirekt@gmo1-mvl.ru", emailJob: "rabota@gmo1-mvl.ru" }
+  };
+
+  // ============================================================
+  // ПОДПИСКИ НА РЕАЛЬНОЕ ВРЕМЯ
+  // ============================================================
+  function subscribeAll() {
+    onSnapshot(query(collection(db, 'administration'), orderBy('order', 'asc')), snap => {
+      DB.admin = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      renderAdmin();
+      if (document.getElementById('adminEditList')) renderAdminPanelAdmins();
+    });
+    onSnapshot(query(collection(db, 'staff'), orderBy('order', 'asc')), snap => {
+      DB.staff = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      renderStaff();
+      if (document.getElementById('staffEditList')) renderAdminPanelStaff();
+    });
+    onSnapshot(query(collection(db, 'blacklist'), orderBy('createdAt', 'desc')), snap => {
+      DB.blacklist = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      renderBlacklist();
+      if (document.getElementById('blacklistEditList')) renderAdminPanelBlacklist();
+    });
+    onSnapshot(query(collection(db, 'reviews'), where('status', '==', 'approved')), snap => {
+      renderReviewsFromData(snap.docs.map(d => ({ id: d.id, ...d.data() })));
+    });
+    onSnapshot(doc(db, 'settings', 'main'), snap => {
+      if (snap.exists()) { DB.settings = { ...DB.settings, ...snap.data() }; applySettings(); }
+    });
+  }
+
+  function applySettings() {
+    const s = DB.settings;
+    const set = (id, val, href) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      if (val) el.textContent = val;
+      if (href) el.href = href;
+    };
+    set('contactPhone', s.phone, 'tel:' + s.phone.replace(/\s/g, ''));
+    set('contactVk', s.vkLink.replace('https://', ''), s.vkLink);
+    set('contactHelper', null, s.helperVk);
+    set('contactEmailMain', s.emailMain, 'mailto:' + s.emailMain);
+    set('contactEmailDirector', s.emailDirector, 'mailto:' + s.emailDirector);
+    set('contactEmailJob', s.emailJob, 'mailto:' + s.emailJob);
+  }
+
+  // ============================================================
+  // ОТРИСОВКА
+  // ============================================================
+  window.renderAdmin = function () {
+    const director = DB.admin.find(a => a.color === 'red');
+    const others = DB.admin.filter(a => a.color !== 'red');
+    const dirBox = document.getElementById('directorBox');
+    const listBox = document.getElementById('adminList');
+    if (dirBox) dirBox.innerHTML = director ? personSquareHTML(director, { avatarClass: 'red', squareClass: 'director', emoji: '😄' }) : '';
+    if (listBox) listBox.innerHTML = others.map(a => personSquareHTML(a, { avatarClass: 'blue', emoji: '😊' })).join('');
+  };
+
+  window.renderStaff = function () {
+    const el = document.getElementById('staffList');
+    if (el) el.innerHTML = DB.staff.map(s => personSquareHTML(s, { avatarClass: 'green', emoji: '😊' })).join('');
+  };
+
+  window.renderBlacklist = function () {
+    const el = document.getElementById('blacklistItems');
+    if (!el) return;
+    el.innerHTML = DB.blacklist.map(b => `
+      <div class="person-square black" onclick="showBlackReason('${b.id}')" style="cursor:pointer;">
+        <div class="big-avatar black-avatar">
+          <span class="avatar-emoji">😐</span>
+          <span class="badge-cs">ЧС</span>
+        </div>
+        <div class="person-name black-name">${b.name}</div>
+        <div class="person-role">Нажмите, чтобы узнать причину</div>
+      </div>
+    `).join('');
+  };
+
+  function personSquareHTML(p, opts = {}) {
+    return `
+      <div class="person-square ${opts.squareClass || ''}">
+        <div class="big-avatar ${opts.avatarClass || ''}">
+          <span class="avatar-emoji">${opts.emoji || '😊'}</span>
+          <span class="avatar-mantle">🧥</span>
+          <span class="avatar-hat">🎓</span>
+        </div>
+        <div class="person-name ${opts.nameClass || ''}">${p.name}</div>
+        <div class="person-role">${p.role || ''}</div>
+      </div>
+    `;
+  }
+
+  window.renderReviewsFromData = function (approved) {
+    const el = document.getElementById('reviewsList');
+    if (!el) return;
+    if (!approved.length) { el.innerHTML = '<p style="color:#8a97ab;">Пока нет одобренных отзывов.</p>'; return; }
+    el.innerHTML = approved.map(r => `
+      <div style="background:#ffffffea; border-radius:20px; padding:18px 24px; margin-bottom:16px; border-left:6px solid #ff9d4d; text-align:left; box-shadow:0 4px 12px rgba(255,140,60,0.1);">
+        <div style="font-weight:700; color:#3a4a63;">${r.name}</div>
+        <div style="color:#f5b91e; font-size:1.2rem; text-shadow:0 0 8px #f5b91e88;">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</div>
+        <div style="margin-top:6px; color:#6b7a90;">${r.text}</div>
+      </div>
+    `).join('');
+  };
+
+  // ============================================================
+  // МОДАЛЬНЫЕ ОКНА
+  // ============================================================
+  window.closeModal = (id) => document.getElementById(id).classList.remove('active');
+  window.openModal = (id) => document.getElementById(id).classList.add('active');
+  window.showAntiBullying = () => openModal('antiBullyingModal');
+
+  window.showBlackReason = function (id) {
+    const b = DB.blacklist.find(x => x.id === id);
+    if (!b) return;
+    document.getElementById('blacklistReasonText').textContent = b.reason;
+    openModal('blacklistReasonModal');
+  };
+
+  // ============================================================
+  // ОТЗЫВЫ
+  // ============================================================
+  let currentRating = null;
+
+  window.openReviewModal = function () {
+    document.getElementById('reviewForm').style.display = 'block';
+    document.getElementById('reviewSuccess').style.display = 'none';
+    document.getElementById('reviewForm').reset();
+    document.getElementById('reviewTextBlock').style.display = 'none';
+    currentRating = null;
+    openModal('reviewModal');
+  };
+
+  window.updateReviewText = function () {
+    const checked = document.querySelector('input[name="rating"]:checked');
+    if (!checked) return;
+    currentRating = checked.value;
+    document.getElementById('reviewTextBlock').style.display = 'block';
+    const label = document.getElementById('reviewTextLabel');
+    if (currentRating <= 3) label.textContent = `Вы выбрали оценку ${currentRating}. Напишите, что вам не понравилось:`;
+    else label.textContent = `Вы выбрали оценку ${currentRating}. Расскажите, что вам понравилось:`;
+  };
+
+  function generateReviewCode() { return `GMO-${Math.floor(100000 + Math.random() * 900000)}`; }
+
+  window.submitReview = async function (e) {
+    e.preventDefault();
+    const name = document.getElementById('reviewName').value.trim();
+    const text = document.getElementById('reviewText').value.trim();
+    if (!name || !currentRating || !text) return;
+
+    const code = generateReviewCode();
+    try {
+      await addDoc(collection(db, 'reviews'), {
+        code, name, rating: Number(currentRating), text, status: 'pending', createdAt: serverTimestamp()
+      });
+      document.getElementById('reviewForm').style.display = 'none';
+      const success = document.getElementById('reviewSuccess');
+      success.style.display = 'block';
+      document.getElementById('reviewSuccessText').innerHTML =
+        `Ваш отзыв отправлен на модерацию.<br><strong>Код вашего отзыва:</strong> <span class="badge-code">${code}</span><br>Сохраните код для обращения в поддержку.`;
+    } catch (err) {
+      alert('Ошибка отправки: ' + err.message);
+    }
+  };
+
+  // ============================================================
+  // ВХОД ДЛЯ РАЗРАБОТЧИКОВ
+  // ============================================================
+  window.openDevLogin = function () {
+    if (window.__auth && window.__auth.isLoggedIn()) { openAdminPanel(); return; }
+    document.getElementById('devPassword').value = '';
+    document.getElementById('devError').style.display = 'none';
+    openModal('devLoginModal');
+  };
+
+  window.checkDevPassword = async function () {
+    const pass = document.getElementById('devPassword').value;
+    const errEl = document.getElementById('devError');
+    errEl.style.display = 'none';
+    if (!pass) { errEl.textContent = 'Введите пароль'; errEl.style.display = 'block'; return; }
+    const ok = await window.__auth.login(pass);
+    if (ok) { closeModal('devLoginModal'); openAdminPanel(); }
+    else {
+      errEl.textContent = 'Неверный пароль'; errEl.style.display = 'block';
+      document.getElementById('devPassword').value = '';
+      await new Promise(r => setTimeout(r, 800));
+    }
+  };
+
+  window.openAdminPanel = function () {
+    if (!window.__auth.isLoggedIn()) { openDevLogin(); return; }
+    openModal('adminPanelModal');
+    renderAdminPanelReviews();
+    renderAdminPanelAdmins();
+    renderAdminPanelStaff();
+    renderAdminPanelBlacklist();
+  };
+
+  document.querySelectorAll('#adminTabs button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#adminTabs button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.admin-tab-content').forEach(c => c.style.display = 'none');
+      document.getElementById(btn.dataset.adminTab).style.display = 'block';
+    });
+  });
+
+  async function renderAdminPanelReviews() {
+    const el = document.getElementById('adminReviewsList');
+    el.innerHTML = '<p>Загрузка...</p>';
+    try {
+      const snap = await getDocs(query(collection(db, 'reviews'), orderBy('createdAt', 'desc')));
+      const list = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      if (!list.length) { el.innerHTML = '<p>Отзывов нет.</p>'; return; }
+      el.innerHTML = list.map(r => `
+        <div class="admin-row">
+          <div style="flex:2;">
+            <strong>${r.name}</strong> — ${'★'.repeat(r.rating)} <br>
+            <small>${r.text}</small><br>
+            <small class="badge-code">${r.code}</small>
+          </div>
+          <span class="status ${r.status === 'pending' ? 'status-pending' : r.status === 'approved' ? 'status-approved' : 'status-rejected'}">
+            ${r.status === 'pending' ? 'На модерации' : r.status === 'approved' ? 'Одобрен' : 'Отклонён'}
+          </span>
+          <div style="display:flex; gap:6px;">
+            ${r.status !== 'approved' ? `<button class="btn" style="padding:4px 14px; font-size:0.8rem;" onclick="approveReview('${r.id}')">Одобрить</button>` : ''}
+            ${r.status !== 'rejected' ? `<button class="btn btn-outline" style="padding:4px 14px; font-size:0.8rem; border-color:#d64545; color:#d64545;" onclick="rejectReview('${r.id}')">Отклонить</button>` : ''}
+          </div>
+        </div>
+      `).join('');
+    } catch (e) { el.innerHTML = '<p style="color:red;">Ошибка загрузки: ' + e.message + '</p>'; }
+  }
+
+  window.approveReview = async function (id) {
+    await updateDoc(doc(db, 'reviews', id), { status: 'approved', moderatedAt: serverTimestamp() });
+    renderAdminPanelReviews();
+  };
+  window.rejectReview = async function (id) {
+    await updateDoc(doc(db, 'reviews', id), { status: 'rejected', moderatedAt: serverTimestamp() });
+    renderAdminPanelReviews();
+  };
+
+  window.searchReviewByCode = async function () {
+    const code = document.getElementById('searchReviewCode').value.trim().toUpperCase();
+    const resultEl = document.getElementById('searchResult');
+    const snap = await getDocs(query(collection(db, 'reviews'), where('code', '==', code)));
+    if (snap.empty) { resultEl.innerHTML = '<p style="color:#d64545;">Отзыв с таким кодом не найден.</p>'; return; }
+    const r = { id: snap.docs[0].id, ...snap.docs[0].data() };
+    resultEl.innerHTML = `
+      <div class="admin-row">
+        <div style="flex:2;">
+          <strong>${r.name}</strong> — ${'★'.repeat(r.rating)} <br>
+          <small>${r.text}</small><br>
+          <small class="badge-code">${r.code}</small>
+        </div>
+        <span class="status ${r.status === 'pending' ? 'status-pending' : r.status === 'approved' ? 'status-approved' : 'status-rejected'}">
+          ${r.status === 'pending' ? 'На модерации' : r.status === 'approved' ? 'Одобрен' : 'Отклонён'}
+        </span>
+      </div>
+    `;
+  };
+
+  async function renderAdminPanelAdmins() {
+    const el = document.getElementById('adminEditList');
+    const snap = await getDocs(query(collection(db, 'administration'), orderBy('order', 'asc')));
+    const list = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    el.innerHTML = list.map(a => `
+      <div class="admin-row">
+        <div style="flex:1;"><strong>${a.name}</strong> — ${a.role} (${a.color === 'red' ? 'красная' : 'синяя'} мантия)</div>
+        <button class="btn btn-outline" style="padding:2px 12px; font-size:0.75rem; border-color:#d64545; color:#d64545;" onclick="removeAdmin('${a.id}')">Удалить</button>
+      </div>
+    `).join('');
+  }
+
+  window.addAdmin = async function () {
+    const name = document.getElementById('newAdminName').value.trim();
+    const role = document.getElementById('newAdminRole').value.trim();
+    const color = document.getElementById('newAdminColor').value;
+    if (!name || !role) return;
+    const maxOrder = DB.admin.length ? Math.max(...DB.admin.map(a => a.order || 0)) : 0;
+    await addDoc(collection(db, 'administration'), { name, role, color, order: maxOrder + 1, createdAt: serverTimestamp() });
+    document.getElementById('newAdminName').value = '';
+    document.getElementById('newAdminRole').value = '';
+    renderAdminPanelAdmins();
+  };
+
+  window.removeAdmin = async function (id) {
+    await deleteDoc(doc(db, 'administration', id));
+    renderAdminPanelAdmins();
+  };
+
+  async function renderAdminPanelStaff() {
+    const el = document.getElementById('staffEditList');
+    const snap = await getDocs(query(collection(db, 'staff'), orderBy('order', 'asc')));
+    const list = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    el.innerHTML = list.map(s => `
+      <div class="admin-row">
+        <div style="flex:1;"><strong>${s.name}</strong> — ${s.role}</div>
+        <button class="btn btn-outline" style="padding:2px 12px; font-size:0.75rem; border-color:#d64545; color:#d64545;" onclick="removeStaff('${s.id}')">Удалить</button>
+      </div>
+    `).join('');
+  }
+
+  window.addStaff = async function () {
+    const name = document.getElementById('newStaffName').value.trim();
+    const role = document.getElementById('newStaffRole').value.trim();
+    if (!name || !role) return;
+    const maxOrder = DB.staff.length ? Math.max(...DB.staff.map(s => s.order || 0)) : 0;
+    await addDoc(collection(db, 'staff'), { name, role, order: maxOrder + 1, createdAt: serverTimestamp() });
+    document.getElementById('newStaffName').value = '';
+    document.getElementById('newStaffRole').value = '';
+    renderAdminPanelStaff();
+  };
+
+  window.removeStaff = async function (id) {
+    await deleteDoc(doc(db, 'staff', id));
+    renderAdminPanelStaff();
+  };
+
+  async function renderAdminPanelBlacklist() {
+    const el = document.getElementById('blacklistEditList');
+    const snap = await getDocs(query(collection(db, 'blacklist'), orderBy('createdAt', 'desc')));
+    const list = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    el.innerHTML = list.map(b => `
+      <div class="admin-row">
+        <div style="flex:1;"><strong>${b.name}</strong> — ${b.reason}</div>
+        <button class="btn btn-outline" style="padding:2px 12px; font-size:0.75rem; border-color:#d64545; color:#d64545;" onclick="removeBlacklist('${b.id}')">Удалить</button>
+      </div>
+    `).join('');
+  }
+
+  window.addBlacklist = async function () {
+    const name = document.getElementById('newBlackName').value.trim();
+    const reason = document.getElementById('newBlackReason').value.trim();
+    if (!name || !reason) return;
+    await addDoc(collection(db, 'blacklist'), { name, reason, createdAt: serverTimestamp() });
+    document.getElementById('newBlackName').value = '';
+    document.getElementById('newBlackReason').value = '';
+    renderAdminPanelBlacklist();
+  };
+
+  window.removeBlacklist = async function (id) {
+    await deleteDoc(doc(db, 'blacklist', id));
+    renderAdminPanelBlacklist();
+  };
+
+  // ============================================================
+  // НАВИГАЦИЯ
+  // ============================================================
+  document.querySelectorAll('.nav-menu button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.nav-menu button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const sectionId = btn.dataset.section;
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.getElementById(sectionId).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
+  document.querySelectorAll('.modal-overlay').forEach(overlay => {
+    overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.remove('active'); });
+  });
+
+  // СТАРТ
+  subscribeAll();
+  applySettings();
+</script>
+</body>
+</html>
